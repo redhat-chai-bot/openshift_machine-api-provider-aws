@@ -6,7 +6,7 @@ RUN unset VERSION \
     && GOPROXY=off NO_DOCKER=1 make build && \
     gzip  /go/src/github.com/openshift/machine-api-provider-aws/openshift-tests/bin/machine-api-provider-aws-tests-ext
 
-FROM registry.ci.openshift.org/openshift/origin-v4.0:base
+FROM quay-proxy.ci.openshift.org/openshift/ci:openshift_origin-v4.0_base
 COPY --from=builder /go/src/github.com/openshift/machine-api-provider-aws/bin/machine-controller-manager /
 COPY --from=builder /go/src/github.com/openshift/machine-api-provider-aws/bin/termination-handler /
 COPY --from=builder /go/src/github.com/openshift/machine-api-provider-aws/openshift-tests/bin/machine-api-provider-aws-tests-ext.gz /
